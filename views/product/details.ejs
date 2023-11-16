@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../component/head',{data:{title:'Product Details'}}) %>
+</head>
+
+<body>
+    <%- include("../component/menu") %>
+
+
+        <div class="container">
+            <div class="row pt-5">
+                <table class="table table-bordered table-hover">
+                    <tr>
+                        <th>Name</th>
+                        <td>
+                            <%= products.name %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Price</th>
+                        <td>
+                            <%= products.price %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Description</th>
+                        <td>
+                            <%= products.description %>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-sm-12 pt-4">
+                <a href="/product/update/<%= products.id %>" class="btn btn-primary">Update</a>
+                <form method="delete" action="/product/<%= products.id %>">
+                    <input type="submit" value="Delete" class="btn btn-danger mt-4">
+                </form>
+            </div>
+        </div>
+        <%- include('../component/footer') %>
+</body>
+
+</html>
