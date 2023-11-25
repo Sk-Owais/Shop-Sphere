@@ -1,5 +1,6 @@
 // this contain db table schema
 let { sequelizeCon, Model, DataTypes } = require('../init/dbconfig')
+// sequelizeCon.sync({alter:true})
 class User extends Model { }
 User.init({
     id: {

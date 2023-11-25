@@ -44,7 +44,7 @@ async function check(data) {
 
             msg.push(i.message)
         }
-        return { err: msg }
+        return { error: msg }
     }
     return { data: valid }
 }
