@@ -1,7 +1,7 @@
 let express = require('express')
 let app = express()
 let session = require('express-session')
-let { routes } = require('./route')
+let { routes } = require('./routes.js')
 let config = require('config')
 let port = config.get('port')
 // let cors = require('cors')
@@ -24,7 +24,8 @@ app.use(express.urlencoded({ extended: true }))
 app.set('view engine', 'ejs')
 app.use(express.static(__dirname + '/public'));
 app.use(session({
-    secret: '#786@54$'
+    secret: '#786@54$',
+
 }))
 app.use(routes)
 app.listen(port, () => {

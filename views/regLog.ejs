@@ -6,83 +6,74 @@
     <%- include('./component/head', {data:{title:'Index'}}) %>
 </head>
 
-<body>
-    <div class="container text-center pt-3">
-        <!-- Registration Form -->
-        <div class="row justify-content-center">
-            <div class="col-md-6 mt-5 " id="first-div">
+<body class="text-bg-primary"
+    style=" background-image: url(https://cdn.svgator.com/images/2022/06/use-svg-as-background-image-particle-strokes.svg) ; background-repeat: no-repeat; background-size: cover;">
+    <section class="vh-100 d-flex flex-column justify-content-between ">
+        <div class="container-fluid h-custom">
+            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1" id="first-div">
+                <h1 class="p-3">Register</h1>
                 <form action="/register" method="post">
-                    <h3><b>Register</b></h3>
-                    <div class="form-group mb-3">
-                        <input type="text" name="userName" class="form-control" placeholder="Enter your name " required>
-                    </div>
-                    <div class="form-group mb-3">
-                        <input type="email" name="email" class="form-control" placeholder="Enter your email" required>
-                    </div>
-                    <div class="form-group mb-3">
-                        <input type="text" name="phone" class="form-control" placeholder="Enter your number" required>
-                    </div>
-                    <div class="form-group mb-3">
-                        <input type="password" name="password" class="form-control" placeholder="Create password"
-                            id="reg-pwd" required>
-                    </div>
-                    <div class="form-check mb-3">
-                        <input type="checkbox" onclick="showPassword()">Show Password
-                    </div>
-                    <button type="submit" class="btn btn-primary">Register</button>
-                </form>
-            </div>
-        </div>
-
-        <!-- Login Form -->
-        <div class="row justify-content-center">
-            <div class="col-md-6 mt-5" id="second-div">
-                <form action="/login" method="post">
-                    <h3><b>Login</b></h3>
-                    <div class="form-group mb-3">
-                        <input type="email" name="email" class="form-control" placeholder="Enter your email" required>
-                    </div>
-                    <div class="form-group mb-3">
-                        <input type="password" name="password" class="form-control" placeholder="Enter password"
-                            id="log-pwd" required>
-                    </div>
-                    <div class="form-check mb-3">
-                        <input type="checkbox" onclick="showPassword()">Show Password
-                    </div>
-                    <button type="submit" class="btn btn-primary">Login</button>
-                    <div class="row justify-content-center mt-3">
-                        <div class="col-md-6">
-                            <a href="/forget">Forgot Password?</a>
+                    <input type="text" id="form3Example5" class="form-control form-control-sm mb-3  "
+                        placeholder="Enter a valid email address" name="userName" required />
+                    <input type="email" id="form3Example6" class="form-control form-control-sm mb-3"
+                        placeholder="Enter a valid email address" name="email" required />
+                    <input type="text" id="form3Example7" class="form-control form-control-sm mb-3"
+                        placeholder="Enter a valid email address" name="phone" required />
+                    <input type="password" id="form3Example8" class="form-control form-control-sm mb-3"
+                        placeholder="Enter password" name="password" required />
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="form-check mb-0">
+                            <!-- <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3" />
+                            <label class="form-check-label" for="form2Example3">
+                                Remember me
+                            </label> -->
                         </div>
                     </div>
+                    <div class="text-center text-md-start  mt-2 pt-1">
+                        <input type="submit" class="btn btn-primary btn-lg"
+                            style="padding-left: 1rem; padding-right: 1rem; " value="Register">
+                        <p class="small fw-bold mt-2 pt-1 mb-0">Already have an account?
+                            <button class="btn btn-primary " id="login">Login In Here</button>
+                        </p>
+                    </div>
                 </form>
             </div>
         </div>
-
-        <!-- Responsive Buttons -->
-        <div class="row justify-content-center mt-3">
-            <div class="col-md-6 text-center">
-                <button class="btn btn-primary" id="register">Register</button>
-                <button class="btn btn-primary" id="login">Login</button>
+        </div>
+        <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1" id="second-div">
+            <h1 class="p-3 ">Login</h1>
+            <form action="/login" method="post">
+                <input type="email" id="form3Example3" class="form-control form-control-sm  m-3"
+                    placeholder="Enter a valid email address" name="email" required />
+                <input type="password" id="form3Example4" class="form-control form-control-sm m-3"
+                    placeholder="Enter password" name="password" required />
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="form-check mb-0">
+                        <!-- <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3" />
+                        <label class="form-check-label" for="form2Example3">
+                            Remember me
+                        </label> -->
+                    </div>
+                    <a href="/forget" class="text-white">Forgot password?</a>
+                </div>
+                <div class="text-center text-lg-start mt-2 pt-2">
+                    <input type="submit" class="btn btn-primary btn-lg"
+                        style="padding-left: 1rem; padding-right: 1rem; " value="Login">
+                    <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account?
+                        <button class="btn btn-primary" id="register">Register Now</button>
+                    </p>
+                </div>
+            </form>
+        </div>
+        <div
+            class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-2 px-1 px-sm-2 bg-primary">
+            <div class="text-white mb-2 mb-md-0">
+                Copyright © 2023. All rights reserved.
             </div>
         </div>
-    </div>
-
+    </section>
     <%- include('./component/footer') %>
         <script src="/js/regLog.js"></script>
-        <script>
-            function showPassword() {
-                let x = document.getElementById("reg-pwd");
-                let y = document.getElementById("log-pwd");
-                if (x.type === "password" || y.type === "password") {
-                    x.type = "text";
-                    y.type = "text";
-                } else {
-                    x.type = "password";
-                    y.type = "password";
-                }
-            }
-        </script>
 </body>
 
 </html>

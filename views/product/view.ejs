@@ -5,71 +5,58 @@
     <%- include('../component/head',{data:{title:'Product List'}}) %>
 </head>
 
-<body>
-    <%- include("../component/menu") %>
-        <div class="container">
-            <div class="row pt-5">
-                <table class="table table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            <th>Sr No.</th>
-                            <th>Name</th>
-                            <th>Price</th>
-                            <th>Description</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <%if(typeof(error) !='undefined' || products && products.length <=0){%>
-                            <tr>
-                                <td>Product not found</td>
-                            </tr>
-                            <%}else{%>
-                                <%for(let rows of products){ %>
-                                    <tr>
-                                        <td>
-                                            <%= rows.id %>
-                                        </td>
-                                        <td>
-                                            <%= rows.name %>
-                                        </td>
-                                        <td>
-                                            <%= rows.price %>
-                                        </td>
-                                        <td>
-                                            <%= rows.description %>
-                                        </td>
-                                        <td>
-                                            <a href="/product/<%= rows.id %>" class="btn btn-info">View</a>
-                                            <a href="/product/update/<%= rows.id %>" class="btn btn-warning">Update</a>
-                                            <% if(rows.is_deleted==false && permissions.product_delete){ %>
-                                                <form action="/product/delete/<%= rows.id %>" method="post">
-                                                    <input type="submit" value="Delete" class="btn btn-danger">
-                                                </form>
-                                                <% } else if(rows.is_deleted==true && permissions.product_restore){ %>
-                                                    <form action="/product/restore/<%= rows.id %>" method="post">
-                                                        <input type="submit" value="Restore" class="btn btn-success">
-                                                    </form>
-                                                    <% } %>
-                                        </td>
-                                    </tr>
-                                    <%}%>
+<body style="background-image: url();">
+    <div class="container">
+        <div class="row pt-5 ">
+            <h1>product</h1>
+            <%if(typeof(error) !='undefined' || products && products.length <=0){%>
+                <tr>
+                    <td>Product not found</td>
+                </tr>
+                <%}else{%>
+                    <%for(let rows of products){ %>
+                        <div class="card m-5 " style="width: 18rem;">
+                            <img class="card-img-top" src="..." alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <%= rows.name %>
+                                </h5>
+                                <h6 class="card-title">
+                                    <%= rows.name %>
+                                </h6>
+                                <p class="card-text">
+                                    <%= rows.price %>
+                                </p>
 
-                    </tbody>
-                </table>
-                <div class="col-sm-12">
-                    <% let totalPage=Math.ceil(total/limit);%>
-                        <% for(let i=1; i<=totalPage;i++){%>
-                            <% let url=`/product?limit=${limit}&&page=${i}`%>
-                                <a href=<%=url%> class="btn btn-primary"><%=i%></a>
-                                <%}%>
-                                    <%}%>
-                </div>
-            </div>
+
+                                <a href="/product/<%= rows.id %>" class="btn btn-info">View</a>
+                                <a href="/product/update/<%= rows.id %>" class="btn btn-warning">Update</a>
+                                <% if(rows.is_deleted==false && permissions.product_delete){ %>
+                                    <form action="/product/delete/<%= rows.id %>" method="post">
+                                        <input type="submit" value="Delete" class="btn btn-danger">
+                                    </form>
+                                    <% } else if(rows.is_deleted==true && permissions.product_restore){ %>
+                                        <form action="/product/restore/<%= rows.id %>" method="post">
+                                            <input type="submit" value="Restore" class="btn btn-success">
+                                        </form>
+                                        <% } %>
+                            </div>
+                        </div>
+
+                        <%}%>
+                            <div class="col-sm-12">
+                                <% let totalPage=Math.ceil(total/limit);%>
+                                    <% for(let i=1; i<=totalPage;i++){%>
+                                        <% let url=`/product?limit=${limit}&&page=${i}`%>
+                                            <a href=<%=url%> class="btn btn-primary"><%=i%></a>
+                                            <%}%>
+                                                <%}%>
+                            </div>
         </div>
+    </div>
 
 
-        <%- include('../component/footer') %>
+    <%- include('../component/footer') %>
 </body>
 
 </html>

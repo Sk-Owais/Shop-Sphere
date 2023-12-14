@@ -5,6 +5,7 @@ let auth = require('./controller/authController')
 let category = require('./controller/categoryController')
 let authMid = require('./middleware/authMiddleWare')
 let dash = require('./controller/dasboardController')
+let cart = require('./controller/cartController')
 
 //user auth routes
 routes.get('/', auth.index) //default - homepage
@@ -14,6 +15,7 @@ routes.post('/login', auth.login)
 
 routes.get('/forget', auth.forgetPasswordUI)
 routes.post('/forgetPassword', auth.forgetPassword)
+routes.post('/reset/:email', auth.pReset)
 
 routes.get('/dashboard', authMid.authM('user'), dash.index)
 
@@ -36,5 +38,8 @@ routes.get('/category/update/:id', authMid.authM('category_update'), category.up
 routes.post('/category/:id', authMid.authM('category_update'), category.update)
 routes.post('/category/delete/:id', authMid.authM('category_delete'), category.cDelete)
 routes.post('/category/restore/:id', authMid.authM('category_restore'), category.restore)
+
+//cart routes
+// routes.post('/add/cart/:id', authMid.authM('cart_add'), cart.create)
 
 module.exports = { routes }

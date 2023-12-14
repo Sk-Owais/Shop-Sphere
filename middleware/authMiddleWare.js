@@ -1,4 +1,3 @@
-let { User } = require('../schema/userSchema')
 let { sequelizeCon, QueryTypes } = require('../init/dbconfig')
 let security = require('../helpers/security')
 function authM(permission) {

@@ -33,23 +33,28 @@ async function forgetPassword(req, res) {
     let forgetData = await authModel.forgetPassword(req.body).catch((error) => {
         return { error }
     })
-    console.log("1", forgetData);
     if (!forgetData || (forgetData && forgetData.error)) {
         let error = (forgetData && forgetData.error) ? forgetData.error : "internal server error"
         return res.send({ error })
     }
-    return res.send({ data: forgetData })
+    return res.render('resPass', { email: req.body.email })
 }
 function forgetPasswordUI(req, res) {
     return res.render('forgetPassword', {})
 }
-
-
-
+async function pReset(req, res) {
+    let resetData = await authModel.pReset(req.params.email, req.body).catch((error) => { return { error } })
+    if (!resetData || (resetData && resetData.error)) {
+        let error = (resetData && resetData.error) ? resetData.error : "Internal Server Error"
+        return res.send({ error })
+    }
+    return res.redirect('/login')
+}
 module.exports = {
     register,
     login,
     index,
     forgetPassword,
-    forgetPasswordUI
+    forgetPasswordUI,
+    pReset
 }

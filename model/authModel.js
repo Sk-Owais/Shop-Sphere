@@ -174,20 +174,66 @@ async function forgetPassword(params) {
     let mailOption = {
         from: 'oshaik427@gmail.com',
         to: params.email,
-        subject: ".....",
-        text: `This is your otp ${otp}`
+        subject: "Reset Password",
+        text: `This is your otp ${otp}`,
+        html: `<b>Your OTP is <span style="color:red">${otp}</span></b>`
     }
     let sendMail = await mail(mailOption).catch((error) => {
         return { error }
     })
     if (!sendMail || (sendMail && sendMail.error)) {
-        return { error: "mail cannot" }
+        return { error: "mail cannot sent" }
     }
     return { data: `mail is send to ${params.email}` }
+}
+async function checkPRes(data) {
+    let schema = joi.object({
+        email: joi.string().required(),
+        otp: joi.string().required(),
+        password: joi.string().required()
+    })
+    let valid = await schema.validateAsync(data, { abortEarly: false }).catch((error) => {
+        return { error }
+    })
+    if (!valid || (valid && valid.error)) {
+        let msg = []
+        for (let i of valid.error.details) {
+            msg.push(i.message)
+        }
+        return { error: msg }
+    }
+    return { data: valid }
+}
+async function pReset(email, params) {
+    params.email = email
+    let valid = await checkPRes(params).catch((error) => { return { error } })
+    if (!valid || (valid && valid.error)) {
+        return { error: valid.error }
+    }
+    let findUser = await User.findOne({ where: { email_id: params.email } }).catch((error) => { return { error } })
+    if (!findUser || (findUser && findUser.error)) {
+        return { error: "User in not found" }
+    }
+    let check = await security.compare(params.otp, findUser.otp).catch((error) => { return { error } })
+    if (!check || (check && check.error)) {
+        return { error: "Op does not match" }
+    }
+    let password = await security.hash(params.password).catch((error) => { return { error } })
+    if (!password || (password && password.error)) {
+        return { error: "password.error" }
+    }
+    let resetPassword = await User.update({password:password.data}, { where: { id: findUser.id } }).catch((error) => {
+        return { error }
+    })
+    if (!resetPassword || (resetPassword && resetPassword.error)) {
+        return { error: "Cannnot update password" }
+    }
+    return { data: "Password is reset" }
 }
 
 module.exports = {
     register,
     login,
-    forgetPassword
+    forgetPassword,
+    pReset
 }
